@@ -14,13 +14,13 @@ all: $(TABLE)
 
 # Step 1: Canonicalization (Kill punctuation, Lowercase, Remove Punctuation)
 $(CLEANED): $(INPUT)
-	sed 's/[^a-zA-Z ]//g' $< | tr 'A-Z' 'a-z' > $@
+	./step1.sh
 
 
 # Step 2: Remove stop words
 # Stop words are (is|the|in|but|can|a|the|is|in|of|to|a|that|it|for|on|with|as|this|was|at|by|an|be|from|or|are)
 $(STOPPED) : $(CLEANED)
-	gawk -f killstopXXX.awk $< > $@
+	./step2.awk $(CLEANED) > $(STOPPED)
 
 
 # Step 3: Report frequency of words
