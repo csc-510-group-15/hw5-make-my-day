@@ -35,8 +35,7 @@ $(TOP_WORDS): $(FREQS)
 
 # Step 5: Generate table of word frequencies per paragraph
 $(TABLE): $(CLEANED) $(TOP_WORDS)
-	gawk -f ZZZ.awk PASS=1 $(TOP_WORDS) PASS=2 $(CLEANED) > $@
-
+	gawk -f step4.awk $(CLEANED) > $@
 
 # Cleanup
 clean:
