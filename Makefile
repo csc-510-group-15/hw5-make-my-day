@@ -1,11 +1,10 @@
 # Define variables
 INPUT = data.txt
-CLEANED = cleaned.txt
-STOPPED = stop.txt
-TOKENS = tokens.txt
-FREQS = word_counts.txt
-TOP_WORDS = top.txt
-TABLE = table.txt
+CLEANED = step1.txt
+STOPPED = step2.txt
+FREQS = frequencies.txt
+TOP_WORDS = step3.txt
+TABLE = step4.txt
 
 
 # Run the full pipeline
@@ -20,7 +19,7 @@ $(CLEANED): $(INPUT)
 # Step 2: Remove stop words
 # Stop words are (is|the|in|but|can|a|the|is|in|of|to|a|that|it|for|on|with|as|this|was|at|by|an|be|from|or|are)
 $(STOPPED) : $(CLEANED)
-	awk -f ./step2.awk $(CLEANED) > $(STOPPED)
+	awk -f ./step2.awk $(CLEANED) > $@
 
 
 # Step 3: Report frequency of words
@@ -35,11 +34,11 @@ $(TOP_WORDS): $(FREQS)
 
 # Step 5: Generate table of word frequencies per paragraph
 $(TABLE): $(CLEANED) $(TOP_WORDS)
-	gawk -f step4.awk $(CLEANED) > $@
+	gawk -f step4.awk $(STOPPED) > $@
 
 # Cleanup
 clean:
-	rm -f $(CLEANED) $(STOPPED) $(TOKENS) $(FREQS) $(TOP_WORDS) $(TABLE)
+	rm -f $(CLEANED) $(STOPPED) $(FREQS) $(TOP_WORDS) $(TABLE)
 
 
 step1:

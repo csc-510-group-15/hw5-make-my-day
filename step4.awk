@@ -4,11 +4,11 @@
 
 BEGIN {
   # Read the top words into an array
-  while ((getline word < "top.txt") > 0) {
+  while ((getline word < "step3.txt") > 0) {
     top_words[word] = 1
     top_words_list[++num_top_words] = word
   }
-  close("top.txt")
+  close("step3.txt")
 
   paragraph = 1
 
