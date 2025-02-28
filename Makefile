@@ -15,11 +15,13 @@ all: $(TABLE)
 # Step 1: Canonicalization (Kill punctuation, Lowercase, Remove Punctuation)
 $(CLEANED): $(INPUT)
 	sed 's/[^a-zA-Z ]//g' $< | tr 'A-Z' 'a-z' > $@
+	sed 's/[^a-zA-Z ]//g' $< | tr 'A-Z' 'a-z' > $@
 
 
 # Step 2: Remove stop words
 # Stop words are (is|the|in|but|can|a|the|is|in|of|to|a|that|it|for|on|with|as|this|was|at|by|an|be|from|or|are)
 $(STOPPED) : $(CLEANED)
+	awk -f ./step2.awk $(CLEANED) > $(STOPPED)
 	awk -f ./step2.awk $(CLEANED) > $(STOPPED)
 
 
@@ -40,18 +42,21 @@ $(TABLE): $(CLEANED) $(TOP_WORDS)
 
 # Cleanup
 clean:
-	rm -f $(CLEANED) $(TOKENS) $(FREQS) $(TOP_WORDS) $(TABLE)
+	rm -f $(CLEANED) $(STOPPED) $(TOKENS) $(FREQS) $(TOP_WORDS) $(TABLE)
 
 
 step1:
+	"$(MAKE)" clean $(CLEANED); head $(CLEANED)
 	"$(MAKE)" clean $(CLEANED); head $(CLEANED)
 
 
 step2:
 	"$(MAKE)" clean $(STOPPED); head $(STOPPED)
+	"$(MAKE)" clean $(STOPPED); head $(STOPPED)
 
 
 step3:
+	"$(MAKE)" clean $(TOP_WORDS); head $(TOP_WORDS)
 	"$(MAKE)" clean $(TOP_WORDS); head $(TOP_WORDS)
 
 
