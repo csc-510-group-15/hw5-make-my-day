@@ -13,9 +13,9 @@ BEGIN {
   paragraph = 1
 
   # Print the header row (top words)
-  printf "Paragraph"
+  # printf "Paragraph"
   for (i = 1; i <= num_top_words; i++) {
-    printf ",%s", top_words_list[i]
+    printf "%s,", top_words_list[i]
   }
   print ""
 }
@@ -38,10 +38,10 @@ BEGIN {
 END {
   # Print the frequency table
   for (p = 1; p <= paragraph; p++) {
-    printf "%d", p
+    # printf "%d", p
     for (i = 1; i <= num_top_words; i++) {
       word = top_words_list[i]
-      printf ",%d", freq[p, word] + 0  
+      printf "%d,", freq[p, word] + 0  
     }
     print ""
   }
