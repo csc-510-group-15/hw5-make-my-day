@@ -6,11 +6,11 @@
 
 {
   # Tally the current field into the frequencies map.
-  if (length($NF) > 0) {
-    if ($NF in frequencies) {
-      frequencies[$NF] += 1
+  for (i = 1; i <= NF; i++) {
+    if ($i in frequencies) {
+      frequencies[$i] += 1
     } else {
-      frequencies[$NF] = 1
+      frequencies[$i] = 1
     }
   }
 }
